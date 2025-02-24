@@ -6,3 +6,13 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+
+  spring:
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: jgualguanguzman@gmail.com
+      password: wafk aotw qicx pcpx
+      properties:
+        mail.smtp.auth: true
+        mail.smtp.starttls.enable: true

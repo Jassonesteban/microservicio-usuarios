@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -44,7 +46,7 @@ public class UserController {
         return repository.findById(userId)
                 .switchIfEmpty(Mono.error(new ChangeSetPersister.NotFoundException()))
                 .flatMap(user -> {
-                    user.getCardIds().addAll(cardIds); // Agregar las nuevas tarjetas
+                    user.setCardIds(new ArrayList<>(cardIds));
                     return repository.save(user);
                 })
                 .map(ResponseEntity::ok)
@@ -65,5 +67,22 @@ public class UserController {
                 .flatMap(user -> repository.delete(user)
                         .then(Mono.just(ResponseEntity.noContent().build())))
                 .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
+
+    @PutMapping("/update/{userId}")
+    public Mono<ResponseEntity<User>> updateUser(@PathVariable Long userId, @RequestBody User user){
+        return repository.findById(userId)
+                .switchIfEmpty(Mono.error(new ChangeSetPersister.NotFoundException()))
+                .flatMap(existingUser -> {
+                    if (user.getUsername() != null) {
+                        existingUser.setUsername(user.getUsername());
+                    }
+                    if (user.getEmail() != null) {
+                        existingUser.setEmail(user.getEmail());
+                    }
+                    return repository.save(existingUser);
+                })
+                .map(ResponseEntity::ok)
+                .onErrorResume(e -> Mono.just(ResponseEntity.internalServerError().build()));
     }
 }

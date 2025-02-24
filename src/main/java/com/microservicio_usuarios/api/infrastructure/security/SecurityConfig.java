@@ -46,6 +46,7 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers("/api/v1/usuarios/**").permitAll()
+                        .pathMatchers("/api/email/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .securityContextRepository(new WebSessionServerSecurityContextRepository())
