@@ -7,12 +7,14 @@ public class UserDTO {
     private String name;
     private String email;
     private List<String> cardIds;
+    private Long rolId;
 
-    public UserDTO(Long id, String name, String email, List<String> cardIds) {
+    public UserDTO(Long id, String name, String email, List<String> cardIds, Long rolId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cardIds = cardIds;
+        this.rolId = rolId;
     }
 
     public Long getId() {
@@ -45,5 +47,13 @@ public class UserDTO {
 
     public void setCardIds(List<String> cardIds) {
         this.cardIds = cardIds;
+    }
+
+    public Long getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(Long rolId) {
+        this.rolId = rolId;
     }
 }

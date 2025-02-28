@@ -56,7 +56,7 @@ public class UserController {
     @GetMapping("/me/{userId}")
     public Mono<ResponseEntity<UserDTO>> getUserById(@PathVariable Long userId){
         return repository.findById(userId)
-                .map(user -> new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getCardIds()))
+                .map(user -> new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.getCardIds(), user.getRolId()))
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
@@ -28,14 +29,18 @@ public class User {
     private String password;
     private List<String> cardIds;
 
+    @Column("rol_id")
+    private Long rolId;
+
     public User() {}
 
-    public User(Long id, String username, String email, String password, List<String> cardIds) {
+    public User(Long id, String username, String email, String password, List<String> cardIds, Long rolId) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.cardIds = cardIds;
+        this.rolId = rolId;
     }
 
     public Long getId() {
@@ -76,5 +81,13 @@ public class User {
 
     public void setCardIds(List<String> cardIds) {
         this.cardIds = cardIds;
+    }
+
+    public Long getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(Long rolId) {
+        this.rolId = rolId;
     }
 }

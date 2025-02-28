@@ -18,7 +18,7 @@ public class UserService {
     }
 
     public Mono<User> register(User user) {
-        user = new User(user.getId(), user.getUsername(), user.getEmail(), passwordEncoder.encode(user.getPassword()), user.getCardIds());
+        user = new User(user.getId(), user.getUsername(), user.getEmail(), passwordEncoder.encode(user.getPassword()), user.getCardIds(), user.getRolId());
         return userRepository.save(user);
     }
 }

@@ -28,7 +28,7 @@ public class AuthService {
                 .flatMap(user -> {
                     if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
                         String token = jwtUtil.generateToken(user.getUsername());
-                        return Mono.just(new AuthResponse(token, user.getEmail(), user.getUsername(), user.getId()));
+                        return Mono.just(new AuthResponse(token, user.getEmail(), user.getUsername(), user.getId(), user.getRolId()));
                     }
                     return Mono.error(new RuntimeException("Credenciales inválidas"));
                 });
